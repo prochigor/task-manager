@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>Task: {{ task.name }}</h2>
+  <p>Status: {% if not task.is_completed %} In progress {% else %} Done {% endif %}</p>
+  <h5>Task type: {{ task.task_type }}, priority ({{ task.get_priority_display|safe }})</h5>
+  <p><strong>Deadline before {{ task.deadline }}</strong></p>
+  <hr>
+  <p>Description:</p>
+  <p>{{ task.description }}</p>
+  <div>
+    <hr>
+    <h4>Worker, works on the task:</h4>
+    <ul>
+      {% for worker in task.assignees.all %}
+        <li>{{ worker }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
