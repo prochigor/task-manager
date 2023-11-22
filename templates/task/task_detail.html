@@ -15,6 +15,7 @@
     <ul>
       {% for worker in task.assignees.all %}
         <li>{{ worker }}</li>
+      {% empty %} <p>Workers not found</p>
       {% endfor %}
     </ul>
   </div>

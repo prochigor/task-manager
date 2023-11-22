@@ -30,7 +30,7 @@
     {% for task in object_list %}
       <tr>
         <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold">{{ task.id }}</a></td>
-        <td><span class="fw-normal">{{ task.name }}</span></td>
+        <td><span class="fw-normal">{{ task.name|truncatechars:15 }}</span></td>
         <td><span class="fw-normal">{{ task.task_type }}</span></td>
         <td><span class="fw-normal">{{ task.deadline }}</span></td>
         <td><span class="fw-bold">{{ task.priority }}</span></td>
@@ -39,10 +39,11 @@
             {% else %}class="fw-bold text-success"{% endif %}>
             {% if not task.is_completed %} In progress {% else %} Done {% endif %}
           </span></td>
-      <td><a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-primary">Update task</a></td>
+        <td>
+          <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-primary">Update task</a>
+          <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-danger">Delete task</a>
+        </td>
       </tr>
-    {% empty %}
-      <p>Workers not found</p>
     {% endfor %}
     </tbody>
   </table>
