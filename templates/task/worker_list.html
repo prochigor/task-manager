@@ -19,7 +19,7 @@
       <th class="border-gray-200">Position</th>
       <th class="border-gray-200">Have tasks</th>
       <th class="border-gray-200">
-        <a href="{% url 'task:worker-create' %}" class="btn btn-sm btn-primary active, add">Add worker
+        <a href="{% url 'task:worker-create' %}" class="btn btn-outline-dark active, add">Add worker
         </a>
       </th>
     </tr>
@@ -34,8 +34,8 @@
         <td><span class="fw-normal">{{ worker.position }}</span></td>
         <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
         <td>
-          <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-primary">Update worker</a>
-          <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-danger">Delete worker</a>
+          <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update worker</a>
+          <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete worker</a>
         </td>
       </tr>
     {% endfor %}

@@ -20,10 +20,7 @@
       <th class="border-gray-200">Priority</th>
       <th class="border-gray-200">Status</th>
       <th class="border-gray-200">
-        <button class="btn btn-outline-danger" type="button">
-          <a href="{% url 'task:task-create' %}" class="link">Add task</a>
-        </button>
-
+        <a href="{% url 'task:task-create' %}" class="btn btn-outline-dark">Add task</a>
       </th>
     </tr>
     </thead>
@@ -42,8 +39,8 @@
             {% if not task.is_completed %} In progress {% else %} Done {% endif %}
           </span></td>
         <td>
-          <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-primary">Update task</a>
-          <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-danger">Delete task</a>
+          <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-outline-secondary">Update task</a>
+          <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-outline-danger">Delete task</a>
         </td>
       </tr>
     {% endfor %}

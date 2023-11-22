@@ -3,7 +3,7 @@
 {% block content %}
   <h2>
     Position list
-    <a href="{% url 'task:position-create' %}" style="float: right" class="btn btn-primary active, add">
+    <a href="{% url 'task:position-create' %}" style="float: right" class="btn btn-outline-dark active, add">
       Add new position
     </a>
   </h2>
@@ -15,8 +15,8 @@
       <div class="col-md-10">
         <h2 class="my-4">
           {{ position.name }}:
-          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-primary">Update position</a>
-          <a href="{% url 'task:position-delete' pk=position.id %}" class="btn btn-danger">Delete position</a>
+          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-outline-secondary">Update position</a>
+          <a href="{% url 'task:position-delete' pk=position.id %}" class="btn btn-outline-danger">Delete position</a>
         </h2>
       </div>
     </div>
@@ -41,8 +41,8 @@
             <td><span class="fw-normal">{{ worker.position }}</span></td>
             <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
             <td>
-              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-primary">Update worker</a>
-              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-danger">Delete worker</a>
+              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update worker</a>
+              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete worker</a>
             </td>
           </tr>
           </tbody>

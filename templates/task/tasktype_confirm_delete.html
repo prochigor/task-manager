@@ -3,11 +3,11 @@
 
 {% block content %}
   <h1>Delete task type</h1>
-  <p>Are you sure, you want to delete {{ type.name }}? Deleted data cannot be returned</p>
+  <p>Are you sure, you want to delete {{ tasktype.name }}? Deleted data cannot be returned</p>
   <form action="" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Yes, delete" class="btn btn-danger"/>
-    <a href="{% url 'task:type-list' %}" class="btn btn-primary">No, return</a>
+    <input type="submit" value="Yes, delete" class="btn btn-outline-danger"/>
+    <a href="{% url 'task:type-list' %}" class="btn btn-outline-secondary">No, return</a>
   </form>
 {% endblock %}

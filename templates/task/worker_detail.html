@@ -4,8 +4,8 @@
 
   <h2>{{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }})</h2>
   <br>
-  <a href="{% url "task:worker-update" pk=worker.id %}" class="btn btn-primary">Update worker</a>
-  <a href="{% url "task:worker-delete" pk=worker.id %}" class="btn btn-danger">Delete worker</a>
+  <a href="{% url "task:worker-update" pk=worker.id %}" class="btn btn-outline-secondary">Update worker</a>
+  <a href="{% url "task:worker-delete" pk=worker.id %}" class="btn btn-outline-danger">Delete worker</a>
   <hr>
   <p>
     <strong>email: {% if worker.email %}{{ worker.email }} {% else %}This user don't have email{% endif %}</strong>
@@ -35,8 +35,8 @@
             <td><span class="fw-normal">{{ task.deadline }}</span></td>
             <td><span class="fw-bold">{{ task.priority }}</span></td>
             <td>
-              <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-primary">Update task</a>
-              <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-danger">Delete task</a>
+              <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-outline-secondary">Update task</a>
+              <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-outline-danger">Delete task</a>
             </td>
           </tr>
         {% endif %}
