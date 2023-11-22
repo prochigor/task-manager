@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from task.models import Task
+from task.models import Task, Worker
 
 
 class TaskListView(generic.ListView):
@@ -37,3 +37,6 @@ class TaskDeleteView(generic.DeleteView):
 class WorkerListView(generic.ListView):
     model = Task
     paginate_by = 10
+    template_name = "task/worker_list.html"
+    queryset = Worker.objects.prefetch_related("position")
+    success_url = reverse_lazy("task:worker-list")
