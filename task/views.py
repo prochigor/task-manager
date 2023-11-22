@@ -9,6 +9,7 @@ class TaskListView(generic.ListView):
     model = Task
     template_name = "task/index.html"
     paginate_by = 8
+    queryset = Task.objects.prefetch_related("assignees")
 
 
 class TaskDetailView(generic.DetailView):
@@ -38,5 +39,5 @@ class WorkerListView(generic.ListView):
     model = Task
     paginate_by = 10
     template_name = "task/worker_list.html"
-    queryset = Worker.objects.prefetch_related("position")
+    queryset = Worker.objects.select_related("position")
     success_url = reverse_lazy("task:worker-list")
