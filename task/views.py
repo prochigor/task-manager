@@ -87,3 +87,9 @@ class TypeCreateView(generic.CreateView):
     model = TaskType
     fields = "__all__"
     success_url = reverse_lazy("task:type-list")
+
+
+class TypeUpdateView(generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task:type-list")
