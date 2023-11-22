@@ -54,3 +54,16 @@ class WorkerCreateView(generic.CreateView):
         "position",
     )
     success_url = reverse_lazy("task:worker-list")
+
+
+class WorkerUpdateView(generic.UpdateView):
+    model = Worker
+    fields = (
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "position",
+    )
+    success_url = reverse_lazy("task:worker-list")
