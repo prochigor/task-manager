@@ -2,7 +2,10 @@
 
 {% block content %}
 
-  <h2>{{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }})</h2>
+  <h2>
+    {{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }})
+    <a href="{% url 'task:worker-list' %}" style="float: right" class="btn btn-outline-secondary">Go back</a>
+  </h2>
   <br>
   <a href="{% url "task:worker-update" pk=worker.id %}" class="btn btn-outline-secondary">Update worker</a>
   <a href="{% url "task:worker-delete" pk=worker.id %}" class="btn btn-outline-danger">Delete worker</a>

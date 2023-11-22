@@ -2,7 +2,10 @@
 
 {% block content %}
 
-  <h2>Task: {{ task.name }}</h2>
+  <h2>
+    Task: {{ task.name }}
+    <a href="{% url 'task:index' %}" style="float: right" class="btn btn-outline-secondary">Go back</a>
+  </h2>
   <p>Status: {% if not task.is_completed %} In progress {% else %} Done {% endif %}</p>
   <h5>Task type: {{ task.task_type }}, priority ({{ task.get_priority_display|safe }})</h5>
   <p><strong>Deadline before {{ task.deadline }}</strong></p>
@@ -15,31 +18,35 @@
     <hr>
     <h4>Workers who works on the task:</h4>
     <table class="table table-hover">
-    <thead>
-    <tr>
-      <th class="border-gray-200">Id</th>
-      <th class="border-gray-200">Username</th>
-      <th class="border-gray-200">Full name</th>
-      <th class="border-gray-200">Position</th>
-      <th class="border-gray-200">Have tasks</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Item -->
-    {% for worker in task.assignees.all %}
+      <thead>
       <tr>
-        <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>
-        <td><span class="fw-normal">{{ worker.username }}</span></td>
-        <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
-        <td><span class="fw-normal">{{ worker.position }}</span></td>
-        <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
-        <td>
-          <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update worker</a>
-          <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete worker</a>
-        </td>
+        <th class="border-gray-200">Id</th>
+        <th class="border-gray-200">Username</th>
+        <th class="border-gray-200">Full name</th>
+        <th class="border-gray-200">Position</th>
+        <th class="border-gray-200">Have tasks</th>
       </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <!-- Item -->
+      {% for worker in task.assignees.all %}
+        <tr>
+          <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>
+          <td><span class="fw-normal">{{ worker.username }}</span></td>
+          <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
+          <td><span class="fw-normal">{{ worker.position }}</span></td>
+          <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
+          <td>
+            <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">
+              Update worker
+            </a>
+            <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">
+              Delete worker
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
   </div>
 {% endblock %}
