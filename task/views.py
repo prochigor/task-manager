@@ -14,7 +14,6 @@ class TaskListView(generic.ListView):
 
 class TaskDetailView(generic.DetailView):
     model = Task
-    paginate_by = 8
 
 
 class TaskCreateView(generic.CreateView):
@@ -72,3 +71,7 @@ class WorkerUpdateView(generic.UpdateView):
 class WorkerDeleteView(generic.DeleteView):
     model = Worker
     success_url = reverse_lazy("task:worker-list")
+
+
+class WorkerDetailView(generic.DetailView):
+    model = Worker
