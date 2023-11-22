@@ -67,3 +67,8 @@ class WorkerUpdateView(generic.UpdateView):
         "position",
     )
     success_url = reverse_lazy("task:worker-list")
+
+
+class WorkerDeleteView(generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("task:worker-list")
