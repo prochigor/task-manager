@@ -13,12 +13,33 @@
   <p>{{ task.description }}</p>
   <div>
     <hr>
-    <h4>Worker, works on the task:</h4>
-    <ul>
-      {% for worker in task.assignees.all %}
-        <li>{{ worker }}</li>
-      {% empty %} <p>Workers not found</p>
-      {% endfor %}
-    </ul>
+    <h4>Workers who works on the task:</h4>
+    <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="border-gray-200">Id</th>
+      <th class="border-gray-200">Username</th>
+      <th class="border-gray-200">Full name</th>
+      <th class="border-gray-200">Position</th>
+      <th class="border-gray-200">Have tasks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Item -->
+    {% for worker in task.assignees.all %}
+      <tr>
+        <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>
+        <td><span class="fw-normal">{{ worker.username }}</span></td>
+        <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
+        <td><span class="fw-normal">{{ worker.position }}</span></td>
+        <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
+        <td>
+          <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-primary">Update worker</a>
+          <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-danger">Delete worker</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
   </div>
 {% endblock %}
