@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Task manager</h1>
+  <p>Hello, you come to the best blog!</p>
+  <hr>
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="my-4">
+        Tasks
+        <a href="#" class="btn btn-primary btn-lg active, add">Add task</a>
+      </h2>
+    </div>
+  </div>
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="border-gray-200">Id</th>
+        <th class="border-gray-200">Task name</th>
+        <th class="border-gray-200">Task type</th>
+        <th class="border-gray-200">Deadline</th>
+        <th class="border-gray-200">Priority</th>
+        <th class="border-gray-200">Status</th>
+        <th class="border-gray-200"><a href="#" class="btn btn-sm btn-primary active, add">Add task</a></th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Item -->
+      {% for task in object_list %}
+        {#              {% if post.owner.id == user.id %}#}
+        {#                <a href="#" class="btn btn-primary">Update task</a>#}
+        {#                <a href="#" class="btn btn-danger">Delete task</a>#}
+        {#              {% endif %}#}
+        <tr>
+          <td><a href="#" class="fw-bold">{{ task.id }}</a></td>
+          <td><span class="fw-normal">{{ task.name }}</span></td>
+          <td><span class="fw-normal">{{ task.task_type }}</span></td>
+          <td><span class="fw-normal">{{ task.deadline }}</span></td>
+          <td><span class="fw-bold">{{ task.priority }}</span></td>
+          <td><span class="fw-bold text-warning">
+            {% if not task.is_completed %} In progress {% else %} Done {% endif %}
+          </span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
+</div>
