@@ -12,7 +12,9 @@ from task.views import (
     WorkerDeleteView,
     WorkerDetailView,
     TypeListView,
-    TypeCreateView, TypeUpdateView,
+    TypeCreateView,
+    TypeUpdateView,
+    TypeDeleteView,
 )
 
 urlpatterns = [
@@ -52,6 +54,11 @@ urlpatterns = [
         "types/<int:pk>/update/",
         TypeUpdateView.as_view(),
         name="type-update"
+    ),
+    path(
+        "types/<int:pk>/delete/",
+        TypeDeleteView.as_view(),
+        name="type-delete"
     ),
 ]
 

@@ -93,3 +93,9 @@ class TypeUpdateView(generic.UpdateView):
     model = TaskType
     fields = "__all__"
     success_url = reverse_lazy("task:type-list")
+
+
+class TypeDeleteView(generic.DeleteView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task:type-list")
