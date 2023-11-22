@@ -25,4 +25,4 @@ class TaskCreateView(generic.CreateView):
 class TaskUpdateView(generic.UpdateView):
     model = Task
     fields = "__all__"
-    success_url = reverse_lazy("blog:my-post-list")
+    success_url = reverse_lazy("task:index")

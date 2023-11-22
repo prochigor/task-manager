@@ -19,18 +19,17 @@
       <th class="border-gray-200">Deadline</th>
       <th class="border-gray-200">Priority</th>
       <th class="border-gray-200">Status</th>
-      <th class="border-gray-200"><a href="#" class="btn btn-sm btn-primary active, add">Add task</a></th>
+      <th class="border-gray-200">
+        <a href="{% url 'task:task-create' %}" class="btn btn-sm btn-primary active, add">Add task
+        </a>
+      </th>
     </tr>
     </thead>
     <tbody>
     <!-- Item -->
     {% for task in object_list %}
-      {#              {% if post.owner.id == user.id %}#}
-      {#                <a href="#" class="btn btn-primary">Update task</a>#}
-      {#                <a href="#" class="btn btn-danger">Delete task</a>#}
-      {#              {% endif %}#}
       <tr>
-        <td><a href="#" class="fw-bold">{{ task.id }}</a></td>
+        <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold">{{ task.id }}</a></td>
         <td><span class="fw-normal">{{ task.name }}</span></td>
         <td><span class="fw-normal">{{ task.task_type }}</span></td>
         <td><span class="fw-normal">{{ task.deadline }}</span></td>
@@ -40,7 +39,10 @@
             {% else %}class="fw-bold text-success"{% endif %}>
             {% if not task.is_completed %} In progress {% else %} Done {% endif %}
           </span></td>
+      <td><a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-primary">Update task</a></td>
       </tr>
+    {% empty %}
+      <p>Workers not found</p>
     {% endfor %}
     </tbody>
   </table>
