@@ -32,3 +32,8 @@ class TaskDeleteView(generic.DeleteView):
     model = Task
     fields = "__all__"
     success_url = reverse_lazy("task:index")
+
+
+class WorkerListView(generic.ListView):
+    model = Task
+    paginate_by = 10
