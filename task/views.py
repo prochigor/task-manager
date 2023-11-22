@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from task.models import Task, Worker, TaskType
+from task.models import Task, Worker, TaskType, Position
 
 
 class TaskListView(generic.ListView):
@@ -98,3 +97,9 @@ class TypeUpdateView(generic.UpdateView):
 class TypeDeleteView(generic.DeleteView):
     model = TaskType
     success_url = reverse_lazy("task:type-list")
+
+
+class PositionListView(generic.ListView):
+    model = Position
+    paginate_by = 3
+    queryset = Position.objects.all()
