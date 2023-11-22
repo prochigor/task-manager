@@ -6,6 +6,8 @@
   <p>Status: {% if not task.is_completed %} In progress {% else %} Done {% endif %}</p>
   <h5>Task type: {{ task.task_type }}, priority ({{ task.get_priority_display|safe }})</h5>
   <p><strong>Deadline before {{ task.deadline }}</strong></p>
+  <a href="{% url "task:task-update" pk=task.id %}" class="btn btn-primary">Update task</a>
+  <a href="{% url "task:task-delete" pk=task.id %}" class="btn btn-danger">Delete task</a>
   <hr>
   <p>Description:</p>
   <p>{{ task.description }}</p>
