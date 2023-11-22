@@ -41,3 +41,16 @@ class WorkerListView(generic.ListView):
     template_name = "task/worker_list.html"
     queryset = Worker.objects.select_related("position")
     success_url = reverse_lazy("task:worker-list")
+
+
+class WorkerCreateView(generic.CreateView):
+    model = Worker
+    fields = (
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "position",
+    )
+    success_url = reverse_lazy("task:worker-list")
