@@ -17,6 +17,7 @@
       <th class="border-gray-200">Username</th>
       <th class="border-gray-200">Full name</th>
       <th class="border-gray-200">Position</th>
+      <th class="border-gray-200">Have tasks</th>
       <th class="border-gray-200">
         <a href="{% url 'task:worker-create' %}" class="btn btn-sm btn-primary active, add">Add worker
         </a>
@@ -29,14 +30,15 @@
       <p>worker</p>
       <tr>
         <td><a href="#" class="fw-bold">{{ worker.id }}</a></td>
-{#        <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>#}
+        {#        <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>#}
         <td><span class="fw-normal">{{ worker.username }}</span></td>
         <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
         <td><span class="fw-normal">{{ worker.position }}</span></td>
-{#        <td>#}
-{#          <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-primary">Update task</a>#}
-{#          <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-danger">Delete task</a>#}
-{#        </td>#}
+        <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
+        <td>
+          <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-primary">Update worker</a>
+          <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-danger">Delete worker</a>
+        </td>
       </tr>
     {% endfor %}
     </tbody>
