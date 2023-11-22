@@ -28,8 +28,7 @@
     <!-- Item -->
     {% for worker in worker_list %}
       <tr>
-        <td><a href="#" class="fw-bold">{{ worker.id }}</a></td>
-        {#        <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>#}
+        <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold">{{ worker.id }}</a></td>
         <td><span class="fw-normal">{{ worker.username }}</span></td>
         <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
         <td><span class="fw-normal">{{ worker.position }}</span></td>
