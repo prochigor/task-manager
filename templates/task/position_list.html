@@ -3,7 +3,8 @@
 {% block content %}
   <h2>
     Position list
-    <a href="{% url 'task:type-create' %}" style="float: right" class="btn btn-primary active, add">Add new position
+    <a href="{% url 'task:position-create' %}" style="float: right" class="btn btn-primary active, add">
+      Add new position
     </a>
   </h2>
   <p>Here is all our staffs</p>
@@ -14,8 +15,8 @@
       <div class="col-md-10">
         <h2 class="my-4">
           {{ position.name }}:
-{#          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-primary">Update position</a>#}
-{#          <a href="{% url 'task:position-delete' pk=position.id %}" class="btn btn-danger">Delete position</a>#}
+          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-primary">Update position</a>
+          <a href="{% url 'task:position-delete' pk=position.id %}" class="btn btn-danger">Delete position</a>
         </h2>
       </div>
     </div>
