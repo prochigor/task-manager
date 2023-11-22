@@ -20,8 +20,10 @@
       <th class="border-gray-200">Priority</th>
       <th class="border-gray-200">Status</th>
       <th class="border-gray-200">
-        <a href="{% url 'task:task-create' %}" class="btn btn-sm btn-primary active, add">Add task
-        </a>
+        <button class="btn btn-outline-danger" type="button">
+          <a href="{% url 'task:task-create' %}" class="link">Add task</a>
+        </button>
+
       </th>
     </tr>
     </thead>
