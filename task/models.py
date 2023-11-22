@@ -24,8 +24,9 @@ class Worker(AbstractUser):
     )
 
     def __str__(self) -> str:
-        return (f"{self.username} ({self.first_name} {self.last_name}) "
-                f"{self.position}")
+        return (
+            f"{self.username} ({self.first_name} {self.last_name}) " f"{self.position}"
+        )
 
 
 class Task(models.Model):
@@ -34,7 +35,7 @@ class Task(models.Model):
         ("2", "Low"),
         ("3", "Medium"),
         ("4", "High"),
-        ("5", "Urgent")
+        ("5", "Urgent"),
     )
 
     name = models.CharField(max_length=255)
@@ -42,16 +43,24 @@ class Task(models.Model):
     deadline = models.DateTimeField()
     is_completed = models.BooleanField()
     priority = models.CharField(max_length=8, choices=PRIORITY_CHOICES)
-    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
+    task_type = models.ForeignKey(
+        TaskType, on_delete=models.CASCADE, related_name="tasks"
+    )
     assignees = models.ManyToManyField(Worker, related_name="tasks")
 
     class Meta:
-        ordering = ("is_completed", "deadline", "priority",)
+        ordering = (
+            "is_completed",
+            "deadline",
+            "priority",
+        )
 
     def __str__(self) -> str:
         if self.is_completed:
             status = "completed"
         else:
             status = "in progress"
-        return (f"{self.name}, type: {self.task_type.name}, "
-                f"priority: {self.priority}, status: {status}")
+        return (
+            f"{self.name}, type: {self.task_type.name}, "
+            f"priority: {self.priority}, status: {status}"
+        )
