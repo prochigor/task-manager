@@ -108,7 +108,7 @@ class PositionListView(generic.ListView):
 class PositionCreateView(generic.CreateView):
     model = Position
     fields = "__all__"
-    success_url = reverse_lazy("position:type-list")
+    success_url = reverse_lazy("task:position-list")
 
 
 class PositionUpdateView(generic.UpdateView):
