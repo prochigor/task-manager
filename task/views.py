@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -101,7 +103,6 @@ class WorkerDetailView(generic.DetailView):
 
 class TypeListView(generic.ListView):
     paginate_by = 3
-    queryset = TaskType.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TypeListView, self).get_context_data(**kwargs)
@@ -174,3 +175,15 @@ class PositionUpdateView(generic.UpdateView):
 class PositionDeleteView(generic.DeleteView):
     model = Position
     success_url = reverse_lazy("task:position-list")
+
+
+@login_required
+def toggle_assign_to_task(request, pk):
+    worker = Worker.objects.get(id=request.user.id)
+    if (
+        Task.objects.get(id=pk) in worker.tasks.all()
+    ):
+        worker.tasks.remove(pk)
+    else:
+        worker.tasks.add(pk)
+    return HttpResponseRedirect(reverse_lazy("task:task-detail", args=[pk]))

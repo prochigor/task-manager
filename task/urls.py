@@ -19,6 +19,7 @@ from task.views import (
     PositionCreateView,
     PositionUpdateView,
     PositionDeleteView,
+    toggle_assign_to_task,
 )
 
 urlpatterns = [
@@ -79,6 +80,11 @@ urlpatterns = [
         "positions/<int:pk>/delete/",
         PositionDeleteView.as_view(),
         name="position-delete"
+    ),
+    path(
+        "tasks/<int:pk>/toggle-assign/",
+        toggle_assign_to_task,
+        name="toggle-task-assign",
     ),
 ]
 
