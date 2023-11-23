@@ -51,8 +51,6 @@ class Task(models.Model):
     assignees = models.ManyToManyField(
         Worker,
         related_name="tasks",
-        null=True,
-        blank=True,
         default=None
     )
 
