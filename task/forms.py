@@ -27,3 +27,12 @@ class TaskCreateForm(forms.ModelForm):
         if data < datetime.datetime.now():
             raise ValidationError("Deadline can't be less than now")
         return data
+
+
+class TaskSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by task name"})
+    )

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Task manager</h1>
@@ -9,6 +10,10 @@
       <h2 class="my-4">Tasks list:</h2>
     </div>
   </div>
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-light" type="submit" value="🔎">
+  </form>
   <div class="card card-body border-0 shadow table-wrapper table-responsive">
     <table class="table table-hover">
       <thead>
