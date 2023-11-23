@@ -40,8 +40,12 @@
           <tbody>
           <!-- Item -->
           <tr>
-            <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold">{{ task.id }}</a></td>
-            <td><span class="fw-normal">{{ task.name|truncatechars:15 }}</span></td>
+            <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">{{ task.id }}</a></td>
+            <td>
+              <a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">
+              {{ task.name|truncatechars:15 }}
+              </a>
+            </td>
             <td><span class="fw-normal">{{ task.task_type }}</span></td>
             <td><span class="fw-normal">{{ task.deadline }}</span></td>
             <td><span class="fw-bold">{{ task.priority }}</span></td>

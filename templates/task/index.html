@@ -33,12 +33,12 @@
       <!-- Item -->
       {% for task in object_list %}
         <tr>
-          <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold" style="color: rgb(128,100,128)">
+          <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">
             {{ task.id }}
           </a>
           </td>
           <td>
-            <a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold" style="color: rgb(128,128,128)">
+            <a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">
               {{ task.name|truncatechars:15 }}</a>
           </td>
           <td><span class="fw-normal">{{ task.task_type }}</span></td>

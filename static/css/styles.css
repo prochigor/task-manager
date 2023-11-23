@@ -61,3 +61,7 @@ body {
 #sidebar li {
   width: 100%;
 }
+
+.detail {
+  color: rgb(128,100,128)
+}
