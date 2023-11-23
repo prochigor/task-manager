@@ -5,7 +5,7 @@ from django.views import generic
 from task.forms import (
     WorkerCreationForm,
     TaskCreateForm,
-    TaskSearchForm, WorkerSearchForm,
+    TaskSearchForm, WorkerSearchForm, TypeSearchForm,
 )
 from task.models import Task, Worker, TaskType, Position
 
@@ -56,10 +56,8 @@ class TaskDeleteView(generic.DeleteView):
 
 
 class WorkerListView(generic.ListView):
-    model = get_user_model()
     paginate_by = 10
     template_name = "task/worker_list.html"
-    queryset = Worker.objects.select_related("position")
     success_url = reverse_lazy("task:worker-list")
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -71,7 +69,7 @@ class WorkerListView(generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = get_user_model().objects.all()
+        queryset = Worker.objects.select_related("position")
         form = WorkerSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(
@@ -104,6 +102,23 @@ class WorkerDetailView(generic.DetailView):
 class TypeListView(generic.ListView):
     paginate_by = 3
     queryset = TaskType.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TypeListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = TypeSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = TaskType.objects.all()
+        form = TypeSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
 
 
 class TypeCreateView(generic.CreateView):

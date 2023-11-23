@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h2 style="margin-top: 15px;">
@@ -8,8 +9,11 @@
   </h2>
   <p>It page contains all types of tasks</p>
   <hr>
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-light" type="submit" value="🔎">
+  </form>
   {% for type in object_list %}
-
     <div class="row">
       <div class="col-md-10">
         <h2 class="my-4">
