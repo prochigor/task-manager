@@ -46,27 +46,12 @@ class WorkerListView(generic.ListView):
 class WorkerCreateView(generic.CreateView):
     model = get_user_model()
     form_class = WorkerCreationForm
-    # fields = (
-    #     # "username",
-    #     "email",
-    #     "password",
-    #     "first_name",
-    #     "last_name",
-    #     "position",
-    # )
     success_url = reverse_lazy("task:worker-list")
 
 
 class WorkerUpdateView(generic.UpdateView):
     model = get_user_model()
-    fields = (
-        "username",
-        "email",
-        "password",
-        "first_name",
-        "last_name",
-        "position",
-    )
+    form_class = WorkerCreationForm
     success_url = reverse_lazy("task:worker-list")
 
 
