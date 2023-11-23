@@ -65,3 +65,7 @@ body {
 .detail {
   color: rgb(128,100,128)
 }
+
+.tophead {
+  margin-top: 15px;
+}

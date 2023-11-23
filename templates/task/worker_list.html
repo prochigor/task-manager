@@ -23,10 +23,11 @@
         <th class="border-gray-200">Full name</th>
         <th class="border-gray-200">Position</th>
         <th class="border-gray-200">Have tasks</th>
-        <th class="border-gray-200">
-          <a href="{% url 'task:worker-create' %}" class="btn btn-outline-dark active, add">Add worker
-          </a>
-        </th>
+        {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
+          <th class="border-gray-200">
+            <a href="{% url 'task:worker-create' %}" class="btn btn-outline-dark active, add">Add worker</a>
+          </th>
+        {% endif %}
       </tr>
       </thead>
       <tbody>
@@ -41,12 +42,14 @@
           <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
           <td><span class="fw-normal">{{ worker.position }}</span></td>
           <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
-          <td>
-            <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
-              worker</a>
-            <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
-              worker</a>
-          </td>
+          {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
+            <td>
+              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
+                worker</a>
+              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
+                worker</a>
+            </td>
+          {% endif %}
         </tr>
       {% endfor %}
       </tbody>

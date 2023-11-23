@@ -2,14 +2,16 @@
 
 {% block content %}
 
-  <h2>
+  <h2 class="tophead">
     {{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }})
     <a href="{% url 'task:worker-list' %}" style="float: right" class="btn btn-outline-secondary">Go back</a>
   </h2>
   <br>
-  <a href="{% url "task:worker-update" pk=worker.id %}" class="btn btn-outline-secondary">Update worker</a>
-  <a href="{% url "task:worker-delete" pk=worker.id %}" class="btn btn-outline-danger">Delete worker</a>
-  <hr>
+  {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
+    <a href="{% url "task:worker-update" pk=worker.id %}" class="btn btn-outline-secondary">Update worker</a>
+    <a href="{% url "task:worker-delete" pk=worker.id %}" class="btn btn-outline-danger">Delete worker</a>
+    <hr>
+  {% endif %}
   <p>
     <strong>email: {% if worker.email %}{{ worker.email }} {% else %}This user don't have email{% endif %}</strong>
   </p>
@@ -37,7 +39,7 @@
               <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">{{ task.id }}</a></td>
               <td>
                 <a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">
-                {{ task.name|truncatechars:15 }}
+                  {{ task.name|truncatechars:15 }}
                 </a>
               </td>
               <td><span class="fw-normal">{{ task.task_type }}</span></td>

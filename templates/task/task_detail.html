@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <h2>
+  <h2 class="tophead">
     Task: {{ task.name }}
     <a href="{% url 'task:index' %}" style="float: right" class="btn btn-outline-secondary">Go back</a>
   </h2>
@@ -19,16 +19,16 @@
     <h4 style="margin-bottom: 15px;">
       Workers who works on the task:
       {% if task in user.tasks.all %}
-      <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-outline-danger link-to-page"
-        style="float: right">
-        Delete me from this task
-      </a>
-    {% else %}
-      <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-outline-success link-to-page"
-         style="float: right">
-        Assign me to this task
-      </a>
-    {% endif %}
+        <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-outline-danger link-to-page"
+           style="float: right">
+          Delete me from this task
+        </a>
+      {% else %}
+        <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-outline-success link-to-page"
+           style="float: right">
+          Assign me to this task
+        </a>
+      {% endif %}
     </h4>
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
       <table class="table table-hover">
@@ -52,14 +52,16 @@
             <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
             <td><span class="fw-normal">{{ worker.position }}</span></td>
             <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
-            <td>
-              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">
-                Update worker
-              </a>
-              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">
-                Delete worker
-              </a>
-            </td>
+            {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id%}
+              <td>
+                <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">
+                  Update worker
+                </a>
+                <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">
+                  Delete worker
+                </a>
+              </td>
+            {% endif %}
           </tr>
         {% endfor %}
         </tbody>

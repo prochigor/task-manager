@@ -2,7 +2,7 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h2 style="margin-top: 15px;">
+  <h2 class="tophead">
     Position list
     <a href="{% url 'task:position-create' %}" style="float: right;" class="btn btn-outline-dark active, add">
       Add new position
@@ -48,12 +48,14 @@
             <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
             <td><span class="fw-normal">{{ worker.position }}</span></td>
             <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
-            <td>
-              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
-                worker</a>
-              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
-                worker</a>
-            </td>
+            {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id%}
+              <td>
+                <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
+                  worker</a>
+                <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
+                  worker</a>
+              </td>
+            {% endif %}
           </tr>
           </tbody>
         {% endfor %}
