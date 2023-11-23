@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h2 style="margin-top: 15px;">
@@ -9,13 +10,18 @@
   </h2>
   <p>Here is all our staffs</p>
   <hr>
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-light" type="submit" value="🔎">
+  </form>
   {% for position in object_list %}
 
     <div class="row">
       <div class="col-md-10">
         <h2 class="my-4">
           {{ position.name }}:
-          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-outline-secondary">Update position</a>
+          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-outline-secondary">Update
+            position</a>
           <a href="{% url 'task:position-delete' pk=position.id %}" class="btn btn-outline-danger">Delete position</a>
         </h2>
       </div>
@@ -41,8 +47,10 @@
             <td><span class="fw-normal">{{ worker.position }}</span></td>
             <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
             <td>
-              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update worker</a>
-              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete worker</a>
+              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
+                worker</a>
+              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
+                worker</a>
             </td>
           </tr>
           </tbody>
