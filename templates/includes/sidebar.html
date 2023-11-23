@@ -7,20 +7,20 @@
     <ul class="nav">
       {% if user.is_authenticated %}
         <li>
-          <a class="list-group-item list-group-item-action list-group-item-light p-3"
-             href="#">
+          <a class="list-group-item list-group-item-action p-3"
+             href="{% url "task:worker-detail" pk=user.id %}">
             User: {{ user.username }}
           </a>
         </li>
         <li>
-          <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          <a class="list-group-item list-group-item-action p-3"
              href="{% url 'logout' %}">
             Logout
           </a>
         </li>
       {% else %}
         <li>
-          <a class="list-group-item list-group-item-action list-group-item-light p-3" style="color: blue"
+          <a class="list-group-item list-group-item-action p-3"
              href="{% url 'login' %}">
             Login
           </a>
@@ -28,23 +28,23 @@
       {% endif %}
       <br>
       <li>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">
+        <a class="list-group-item list-group-item-action p-3" href="/">
           Tasks
         </a>
       </li>
       <li>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'task:worker-list' %}">
+        <a class="list-group-item list-group-item-action p-3" href="{% url 'task:worker-list' %}">
           Workers
         </a>
       </li>
       <li>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+        <a class="list-group-item list-group-item-action p-3"
            href="{% url 'task:type-list' %}">
           Task types
         </a>
       </li>
       <li>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+        <a class="list-group-item list-group-item-action p-3"
            href="{% url 'task:position-list' %}">
           Positions
         </a>
