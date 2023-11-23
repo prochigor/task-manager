@@ -12,7 +12,7 @@ from task.models import Task, Worker, TaskType, Position
 
 class TaskListView(generic.ListView):
     template_name = "task/index.html"
-    paginate_by = 8
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
