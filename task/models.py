@@ -52,14 +52,14 @@ class Task(models.Model):
         Worker,
         related_name="tasks",
         null=True,
-        blank=True
+        blank=True,
+        default=None
     )
 
     class Meta:
         ordering = (
-            "deadline",
             "is_completed",
-            "priority",
+            "-priority",
         )
 
     def __str__(self) -> str:
