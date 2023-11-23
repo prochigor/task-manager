@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -42,7 +43,7 @@ class WorkerListView(generic.ListView):
 
 
 class WorkerCreateView(generic.CreateView):
-    model = Worker
+    model = get_user_model()
     fields = (
         "username",
         "email",
@@ -55,7 +56,7 @@ class WorkerCreateView(generic.CreateView):
 
 
 class WorkerUpdateView(generic.UpdateView):
-    model = Worker
+    model = get_user_model()
     fields = (
         "username",
         "email",
@@ -68,16 +69,15 @@ class WorkerUpdateView(generic.UpdateView):
 
 
 class WorkerDeleteView(generic.DeleteView):
-    model = Worker
+    model = get_user_model()
     success_url = reverse_lazy("task:worker-list")
 
 
 class WorkerDetailView(generic.DetailView):
-    model = Worker
+    model = get_user_model()
 
 
 class TypeListView(generic.ListView):
-    model = TaskType
     paginate_by = 3
     queryset = TaskType.objects.all()
 
@@ -100,7 +100,6 @@ class TypeDeleteView(generic.DeleteView):
 
 
 class PositionListView(generic.ListView):
-    model = Position
     paginate_by = 3
     queryset = Position.objects.all()
 
