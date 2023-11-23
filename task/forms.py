@@ -27,14 +27,7 @@ class TaskCreateForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = (
-            "name",
-            "description",
-            "deadline",
-            "priority",
-            "task_type",
-            "assignees",
-        )
+        fields = "__all__"
 
     def clean_deadline(self):
         data = self.cleaned_data["deadline"]
