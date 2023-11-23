@@ -22,7 +22,7 @@ class TaskCreateForm(forms.ModelForm):
     assignees = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -48,7 +48,7 @@ class TaskSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search task by name"})
+        widget=forms.TextInput(attrs={"placeholder": "Search task by name"}),
     )
 
 
@@ -57,7 +57,7 @@ class WorkerSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by username"})
+        widget=forms.TextInput(attrs={"placeholder": "Search by username"}),
     )
 
 
@@ -66,7 +66,7 @@ class TypeSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by type task"})
+        widget=forms.TextInput(attrs={"placeholder": "Search by type task"}),
     )
 
 
@@ -75,5 +75,5 @@ class PositionSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by position"})
+        widget=forms.TextInput(attrs={"placeholder": "Search by position"}),
     )

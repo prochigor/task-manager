@@ -20,9 +20,7 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(
-        Position,
-        on_delete=models.CASCADE,
-        related_name="workers",
+        Position, on_delete=models.CASCADE, related_name="workers", null=True
     )
 
     def __str__(self) -> str:
@@ -48,11 +46,7 @@ class Task(models.Model):
     task_type = models.ForeignKey(
         TaskType, on_delete=models.CASCADE, related_name="tasks"
     )
-    assignees = models.ManyToManyField(
-        Worker,
-        related_name="tasks",
-        default=None
-    )
+    assignees = models.ManyToManyField(Worker, related_name="tasks", default=None)
 
     class Meta:
         ordering = (

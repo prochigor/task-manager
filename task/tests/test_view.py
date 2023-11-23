@@ -1,234 +1,275 @@
-# from django.contrib.auth import get_user_model
-# from django.test import TestCase
-# from django.urls import reverse
-#
-# from taxi.models import Car, Manufacturer
-#
-# HOME_PAGE = reverse("taxi:index")
-#
-#
-# class IndexViewTest(TestCase):
-#     def setUp(self):
-#         self.driver = get_user_model().objects.create(
-#             username="testuser",
-#             password="testpass123",
-#             license_number="ASJ37397"
-#         )
-#         self.driver2 = get_user_model().objects.create(
-#             username="testuser2",
-#             password="testpass1234",
-#             license_number="ASJ37394"
-#         )
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="Test Manufacturer"
-#         )
-#         self.car = Car.objects.create(
-#             model="Test Car",
-#             manufacturer=self.manufacturer,
-#         )
-#         self.client.force_login(self.driver)
-#
-#     def test_public_index_view(self):
-#         self.client.logout()
-#         response = self.client.get(HOME_PAGE)
-#         redirected_url = "/accounts/login/?next=/"
-#         self.assertEqual(response.url, redirected_url)
-#         self.assertEqual(response.status_code, 302)
-#
-#     def test_content_in_home_page(self):
-#         response = self.client.get(HOME_PAGE)
-#         response = self.client.get(HOME_PAGE)
-#
-#         self.assertEqual(response.context["num_drivers"], 2)
-#         self.assertEqual(response.context["num_cars"], 1)
-#         self.assertEqual(response.context["num_manufacturers"], 1)
-#         self.assertEqual(response.context["num_visits"], 2)
-#
-#     def test_index_view_statis_code(self):
-#         response = self.client.get(HOME_PAGE)
-#         self.assertEqual(response.status_code, 200)
-#
-#
-# class ManufacturerPublicViewTest(TestCase):
-#     def test_manufacturer_list_redirect(self):
-#         url = reverse("taxi:manufacturer-list")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#     def test_manufacturer_create_redirect(self):
-#         url = reverse("taxi:manufacturer-create")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#     def test_manufacturer_update_redirect(self):
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="Testmanu",
-#             country="Uk"
-#         )
-#         url = "/manufacturers/1/update/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#     def test_manufacturer_delete_redirect(self):
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="Testmanu",
-#             country="Uk"
-#         )
-#         url = "/manufacturers/1/delete/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#
-# class ManufacturerPrivateViewTest(TestCase):
-#     def setUp(self):
-#         self.driver = get_user_model().objects.create(
-#             username="testuser",
-#             password="testpass123",
-#             license_number="ASJ37397"
-#         )
-#         self.client.force_login(self.driver)
-#
-#     def test_manufacturer_open_list_page(self):
-#         url = reverse("taxi:manufacturer-list")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_manufacturer_create_page(self):
-#         url = reverse("taxi:manufacturer-create")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         Manufacturer.objects.create(name="1", country="1")
-#         manufacturers = Manufacturer.objects.count()
-#         self.assertEqual(manufacturers, 1)
-#
-#     def test_manufacturer_open_update_page(self):
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="Testmanu",
-#             country="Uk"
-#         )
-#         url = "/manufacturers/1/update/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_manufacturer_open_delete_page(self):
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="Testmanu",
-#             country="Uk"
-#         )
-#         url = "/manufacturers/1/delete/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         self.assertContains(response, "Delete manufacturer?")
-#
-#
-# class CarPublicViewTest(TestCase):
-#     def test_car_list_redirect(self):
-#         url = reverse("taxi:car-list")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#     def test_car_create_redirect(self):
-#         url = reverse("taxi:car-create")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#
-# class CarPrivateViewTest(TestCase):
-#     def setUp(self):
-#         self.driver = get_user_model().objects.create(
-#             username="testdriver",
-#             password="driverpass123",
-#             license_number="ASJ37397"
-#         )
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="yest",
-#             country="Ukraine"
-#         )
-#         self.car = Car.objects.create(
-#             model="Audi",
-#             manufacturer=self.manufacturer
-#         )
-#         self.client.force_login(self.driver)
-#
-#     def test_car_list(self):
-#         url = reverse("taxi:car-list")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         name = Car.objects.first()
-#         self.assertContains(response, name)
-#
-#     def test_car_create(self):
-#         url = reverse("taxi:manufacturer-create")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         Car.objects.create(model="1", manufacturer=self.manufacturer)
-#         Car.objects.create(model="2", manufacturer=self.manufacturer)
-#         cars = Car.objects.count()
-#         self.assertEqual(cars, 3)
-#
-#     def test_car_open_update_page(self):
-#         url = "/cars/1/update/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_manufacturer_open_delete_page(self):
-#         url = "/cars/1/delete/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         self.assertContains(response, "Delete car?")
-#
-#
-# class DriverPublicViewTest(TestCase):
-#     def test_driver_list_redirect(self):
-#         url = reverse("taxi:driver-list")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#     def test_driver_create_redirect(self):
-#         url = reverse("taxi:driver-create")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 302)
-#
-#
-# class DriverPrivateViewTest(TestCase):
-#     def setUp(self):
-#         self.driver = get_user_model().objects.create(
-#             username="testdriver",
-#             password="driverpass123",
-#             license_number="ASJ37397"
-#         )
-#         self.manufacturer = Manufacturer.objects.create(
-#             name="yest",
-#             country="Ukraine"
-#         )
-#         self.client.force_login(self.driver)
-#
-#     def test_open_driver_list(self):
-#         url = reverse("taxi:driver-list")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         name = get_user_model().objects.first().username
-#         self.assertContains(response, name)
-#
-#     def test_driver_create(self):
-#         url = reverse("taxi:driver-create")
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         get_user_model().objects.create(
-#             username="driver2",
-#             password="driver2123",
-#             license_number="AEJ37397"
-#         )
-#         drivers = get_user_model().objects.count()
-#         self.assertEqual(drivers, 2)
-#
-#     def test_driver_open_update_page(self):
-#         url = "/drivers/1/update/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_driver_open_delete_page(self):
-#         url = "/drivers/1/delete/"
-#         response = self.client.get(url)
-#         self.assertEqual(response.status_code, 200)
-#         self.assertContains(response, "Delete driver?")
+from datetime import datetime, timedelta
+
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.urls import reverse
+
+from task.models import Task, TaskType, Position
+
+
+class ViewPublicTest(TestCase):
+    def setUp(self):
+        self.deadline = datetime.now() + timedelta(days=1)
+        self.position = Position.objects.create(name="Manager")
+        self.type = TaskType.objects.create(name="QA")
+        self.worker = get_user_model().objects.create_user(
+            username="testuser",
+            password="testpass12",
+        )
+        self.task = Task.objects.create(
+            name="Test",
+            description="Make test",
+            deadline=self.deadline,
+            priority="2",
+            task_type=self.type,
+        )
+
+    def test_task_list_redirect(self):
+        url = reverse("task:index")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_create_redirect(self):
+        url = reverse("task:task-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_update_redirect(self):
+        url = "/tasks/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_delete_redirect(self):
+        url = "/tasks/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_worker_list_redirect(self):
+        url = reverse("task:worker-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_worker_create_redirect(self):
+        url = reverse("task:worker-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_worker_update_redirect(self):
+        url = "/workers/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_worker_delete_redirect(self):
+        url = "/workers/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_type_list_redirect(self):
+        url = reverse("task:type-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_type_create_redirect(self):
+        url = reverse("task:type-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_type_update_redirect(self):
+        url = "/types/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_task_type_delete_redirect(self):
+        url = "/types/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_position_list_redirect(self):
+        url = reverse("task:position-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_position_create_redirect(self):
+        url = reverse("task:position-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_position_update_redirect(self):
+        url = "/positions/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_position_delete_redirect(self):
+        url = "/positions/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+
+class PrivateViewManagerTest(TestCase):
+    def setUp(self):
+        self.deadline = datetime.now() + timedelta(days=1)
+        self.position = Position.objects.create(name="Manager")
+        self.type = TaskType.objects.create(name="Develop")
+        self.worker = get_user_model().objects.create_user(
+            username="testuser", password="testpassword12", first_name="Bor"
+        )
+        self.worker.position = self.position
+        self.worker.save()
+        self.client.force_login(self.worker)
+        self.task = Task.objects.create(
+            name="Test",
+            description="Make test",
+            deadline=self.deadline,
+            priority="2",
+            task_type=self.type,
+        )
+
+    def test_content_in_task_list(self):
+        url = reverse("task:index")
+        response = self.client.get(url)
+        self.assertContains(response, self.task.name)
+        self.assertContains(response, self.task.id)
+        self.assertContains(response, self.task.task_type.name)
+        self.assertContains(response, "Deadline")
+        self.assertContains(response, self.task.priority)
+
+    def test_task_list_view(self):
+        url = reverse("task:index")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_task_create_page(self):
+        url = reverse("task:task-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        Task.objects.create(
+            name="Test",
+            description="Make test",
+            deadline=self.deadline,
+            priority="2",
+            task_type=self.type,
+        )
+        task = Task.objects.count()
+        self.assertEqual(task, 2)
+
+    def test_task_open_update_page(self):
+        url = "/tasks/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_task_delete(self):
+        url = "/tasks/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Delete task")
+        Task.objects.filter(id=self.task.id).delete()
+        tasks = Task.objects.count()
+        self.assertEqual(tasks, 0)
+
+    def test_content_worker_list(self):
+        url = reverse("task:worker-list")
+        response = self.client.get(url)
+        self.assertContains(response, self.worker.id)
+        self.assertContains(response, self.worker.username)
+        self.assertContains(response, self.worker.position.name)
+        self.assertContains(response, self.worker.tasks.count())
+        self.assertContains(response, self.worker.first_name)
+        self.assertContains(response, self.worker.last_name)
+
+    def test_content_worker_detail(self):
+        response = self.client.get("/workers/1/update/")
+        self.assertContains(response, self.worker.username)
+        self.assertContains(response, self.worker.position.name)
+        self.assertContains(response, self.worker.tasks.count())
+        self.assertContains(response, self.worker.first_name)
+        self.assertContains(response, self.worker.last_name)
+
+    def test_worker_list_view(self):
+        url = reverse("task:worker-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_worker_create_page(self):
+        url = reverse("task:worker-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        workers = Task.objects.count()
+        self.assertEqual(workers, 1)
+
+    def test_worker_open_update_page(self):
+        url = "/workers/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_worker_delete(self):
+        url = "/workers/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Delete worker")
+        get_user_model().objects.filter(id=self.task.id).delete()
+        workers = get_user_model().objects.count()
+        self.assertEqual(workers, 0)
+
+    def test_content_type_list(self):
+        url = reverse("task:type-list")
+        response = self.client.get(url)
+        self.assertContains(response, self.type.id)
+        self.assertContains(response, self.type.name)
+
+    def test_type_list_view(self):
+        url = reverse("task:type-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_type_create_page(self):
+        url = reverse("task:type-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        workers = Task.objects.count()
+        self.assertEqual(workers, 1)
+
+    def test_type_open_update_page(self):
+        url = "/types/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_type_delete(self):
+        url = "/types/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Delete task type")
+        TaskType.objects.filter(id=self.task.id).delete()
+        types = TaskType.objects.count()
+        self.assertEqual(types, 0)
+
+    def test_content_position_list(self):
+        url = reverse("task:position-list")
+        response = self.client.get(url)
+        self.assertContains(response, self.position.id)
+        self.assertContains(response, self.position.name)
+
+    def test_position_list_view(self):
+        url = reverse("task:position-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_position_create_page(self):
+        url = reverse("task:position-create")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        workers = Task.objects.count()
+        self.assertEqual(workers, 1)
+
+    def test_position_open_update_page(self):
+        url = "/positions/1/update/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_position_delete(self):
+        url = "/positions/1/delete/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Delete position")
+        Position.objects.filter(id=self.position.id).delete()
+        positions = Position.objects.count()
+        self.assertEqual(positions, 0)
