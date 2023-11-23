@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.views import generic
 
-from task.forms import WorkerCreationForm
+from task.forms import WorkerCreationForm, TaskCreateForm
 from task.models import Task, Worker, TaskType, Position
 
 
@@ -19,7 +19,8 @@ class TaskDetailView(generic.DetailView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = ("name", "description", "deadline", "priority", "task_type")
+    form_class = TaskCreateForm
+    # fields = ("name", "description", "deadline", "priority", "task_type")
     success_url = reverse_lazy("task:index")
 
 
