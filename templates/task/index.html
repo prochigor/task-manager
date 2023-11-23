@@ -21,7 +21,6 @@
         <th class="border-gray-200">Id</th>
         <th class="border-gray-200">Task name</th>
         <th class="border-gray-200">Task type</th>
-        <th class="border-gray-200">Task type</th>
         <th class="border-gray-200">Deadline</th>
         <th class="border-gray-200">Priority</th>
         <th class="border-gray-200">Status</th>
@@ -34,15 +33,25 @@
       <!-- Item -->
       {% for task in object_list %}
         <tr>
-          <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold">{{ task.id }}</a></td>
-          <td><span class="fw-normal">{{ task.name|truncatechars:15 }}</span></td>
+          <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold" style="color: rgb(128,100,128)">
+            {{ task.id }}
+          </a>
+          </td>
+          <td>
+            <a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold" style="color: rgb(128,128,128)">
+              {{ task.name|truncatechars:15 }}</a>
+          </td>
           <td><span class="fw-normal">{{ task.task_type }}</span></td>
           <td><span class="fw-normal">{{ task.deadline }}</span></td>
-          <td><span class="fw-bold">{{ task.priority }}</span></td>
+          <td><span class="fw-bold">{{ task.get_priority_display|safe }}</span></td>
           <td><span
-              {% if not task.is_completed %}class="fw-bold text-warning"
-              {% else %}class="fw-bold text-success"{% endif %}>
-            {% if not task.is_completed %} In progress {% else %} Done {% endif %}
+              {% if task.is_completed %} class="fw-bold text-success" {% endif %}
+              {% if task.check_deadline and not task.is_completed %} class="fw-bold text-warning" {% endif %}
+              {% if not task.check_deadline and not task.is_completed %} class="fw-bold text-danger" {% endif %}
+          >
+            {% if task.is_completed %} Done {% endif %}
+            {% if task.check_deadline and not task.is_completed %} In progress {% endif %}
+            {% if not task.check_deadline and not task.is_completed %} Overdue {% endif %}
           </span></td>
           <td>
             <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-outline-secondary">Update task</a>

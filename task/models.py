@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -69,3 +71,6 @@ class Task(models.Model):
             f"{self.name}, type: {self.task_type.name}, "
             f"priority: {self.priority}, status: {status}"
         )
+
+    def check_deadline(self):
+        return self.deadline > datetime.datetime.now()
