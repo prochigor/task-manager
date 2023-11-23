@@ -7,7 +7,10 @@ from django.views import generic
 from task.forms import (
     WorkerCreationForm,
     TaskCreateForm,
-    TaskSearchForm, WorkerSearchForm, TypeSearchForm, PositionSearchForm,
+    TaskSearchForm,
+    WorkerSearchForm,
+    TypeSearchForm,
+    PositionSearchForm,
 )
 from task.models import Task, Worker, TaskType, Position
 
@@ -41,13 +44,12 @@ class TaskDetailView(generic.DetailView):
 class TaskCreateView(generic.CreateView):
     model = Task
     form_class = TaskCreateForm
-    # fields = ("name", "description", "deadline", "priority", "task_type")
     success_url = reverse_lazy("task:index")
 
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    fields = "__all__"
+    form_class = TaskCreateForm
     success_url = reverse_lazy("task:index")
 
 

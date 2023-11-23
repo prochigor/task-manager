@@ -1,6 +1,7 @@
 import datetime
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
@@ -18,9 +19,21 @@ class WorkerCreationForm(UserCreationForm):
 
 
 class TaskCreateForm(forms.ModelForm):
+    assignees = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Task
-        fields = ("name", "description", "deadline", "priority", "task_type")
+        fields = (
+            "name",
+            "description",
+            "deadline",
+            "priority",
+            "task_type",
+            "assignees",
+        )
 
     def clean_deadline(self):
         data = self.cleaned_data["deadline"]
