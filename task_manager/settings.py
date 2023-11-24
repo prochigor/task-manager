@@ -37,9 +37,9 @@ CSRF_COOKIE_SECURE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "https://task-manager-8a0q.onrender.com/"]
+ALLOWED_HOSTS = ["127.0.0.1", "task-manager-8a0q.onrender.com"]
 
 # Application definition
 
