@@ -39,7 +39,7 @@ CSRF_COOKIE_SECURE = True
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "https://task-manager-lpw8.onrender.com"]
 
 # Application definition
 
