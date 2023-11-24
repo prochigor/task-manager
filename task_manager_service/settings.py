@@ -23,14 +23,21 @@ print(os.getenv('POSTGRES_DB'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "YlmUh7kmxO8N:W0&&$qzl2bf*2%1nqllr8$1%!#@etxj!7u*nwc_b3y&*noi&nyjgONCUI"
-)
+SECRET_KEY = os.environ["SECRET_KEY"]
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_HSTS_SECONDS = 31536000
+
+SESSION_COOKIE_SECURE = True
+
+SECURE_HSTS_PRELOAD = True
+
+CSRF_COOKIE_SECURE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
