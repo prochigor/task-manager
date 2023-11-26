@@ -5,6 +5,15 @@
   <h2 class="tophead">
     Task: {{ task.name }}
     <a href="{% url 'task:index' %}" style="float: right" class="btn btn-outline-secondary">Go back</a>
+    {% if not task.is_completed %}
+      <a href="{% url 'task:toggle-task-complete' pk=task.id %}" class="btn btn-outline-success link-to-page">
+        Mark as completed
+      </a>
+    {% else %}
+      <a href="{% url 'task:toggle-task-complete' pk=task.id %}" class="btn btn-outline-warning link-to-page">
+        Reopen task
+      </a>
+    {% endif %}
   </h2>
   <p>Status: {% if not task.is_completed %} In progress {% else %} Done {% endif %}</p>
   <h5>Task type: {{ task.task_type }}, priority ({{ task.get_priority_display|safe }})</h5>
@@ -52,7 +61,7 @@
             <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
             <td><span class="fw-normal">{{ worker.position }}</span></td>
             <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
-            {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id%}
+            {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
               <td>
                 <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">
                   Update worker
