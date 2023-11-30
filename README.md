@@ -28,22 +28,19 @@ Open terminal and write:
 4) Install needed requirements:
   Write in terminal (pip install -r requirements.txt)
 
-5) Make migrations
-  Write in terminal (python manage.py makemigrations)
-
-6) Migrate
+5) Migrate
   Write in terminal (python manage.py migrate)
 
-7) Add data to database:
+6) Add data to database:
   Write in terminal (python manage.py loaddata task_manager_db_data.json)
 
-8) Run server
+7) Run server
   Write in terminal python manage.py runserver
 
-9) Open page with link in terminal
+8) Open page with link in terminal
 
-10) After loading data from fixture you can use following superuser (or create another one by yourself): 
+9) After loading data from fixture you can use following superuser (or create another one by yourself): 
 Login: admin.user
 Password: 1qazcde3
 
-11) Feel free to add more data using admin panel, if needed.
+10) Feel free to add more data using admin panel, if needed.
