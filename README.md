@@ -1,5 +1,9 @@
 # task_manager
 
+# link to deployed project
+https://task-manager-8a0q.onrender.com
+Login: admin.user
+Password: 1qazcde3
 
 # Description
 In this site you can manage process developing different projects. 
