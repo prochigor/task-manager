@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2 class="tophead">
+    Position list
+    <a href="{% url 'task:position-create' %}" style="float: right;" class="btn btn-outline-dark active, add">
+      Add new position
+    </a>
+  </h2>
+  <p>Here is all our staffs</p>
+  <hr>
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-light" type="submit" value="🔎">
+  </form>
+  {% for position in object_list %}
+
+    <div class="row">
+      <div class="col-md-10">
+        <h2 class="my-4">
+          {{ position.name }}:
+          <a href="{% url 'task:position-update' pk=position.id %}" class="btn btn-outline-secondary">Update
+            position</a>
+          <a href="{% url 'task:position-delete' pk=position.id %}" class="btn btn-outline-danger">Delete position</a>
+        </h2>
+      </div>
+    </div>
+    <div class="card card-body border-0 shadow table-wrapper table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th class="border-gray-200">Id</th>
+          <th class="border-gray-200">Username</th>
+          <th class="border-gray-200">Full name</th>
+          <th class="border-gray-200">Position</th>
+          <th class="border-gray-200">Have tasks</th>
+        </tr>
+        </thead>
+        {% for worker in position.workers.all %}
+          <tbody>
+          <!-- Item -->
+          <tr>
+            <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold, detail">{{ worker.id }}</a></td>
+            <td>
+              <a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold, detail">{{ worker.username }}</a>
+            </td>
+            <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
+            <td><span class="fw-normal">{{ worker.position }}</span></td>
+            <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
+            {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id%}
+              <td>
+                <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
+                  worker</a>
+                <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
+                  worker</a>
+              </td>
+            {% endif %}
+          </tr>
+          </tbody>
+        {% endfor %}
+      </table>
+    </div>
+  {% endfor %}
+{% endblock %}

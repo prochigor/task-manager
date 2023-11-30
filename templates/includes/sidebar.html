@@ -1,0 +1,55 @@
+<div id="viewport">
+  <div id="sidebar">
+    <header>
+
+      <a href="{% url 'task:index' %}">Home</a>
+    </header>
+    <ul class="nav">
+      {% if user.is_authenticated %}
+        <li>
+          <a class="list-group-item list-group-item-action p-3"
+             href="{% url "task:worker-detail" pk=user.id %}">
+            User: {{ user.username }}
+          </a>
+        </li>
+        <li>
+          <a class="list-group-item list-group-item-action p-3"
+             href="{% url 'logout' %}">
+            Logout
+          </a>
+        </li>
+      {% else %}
+        <li>
+          <a class="list-group-item list-group-item-action p-3"
+             href="{% url 'login' %}">
+            Login
+          </a>
+        </li>
+      {% endif %}
+      <br>
+      <li>
+        <a class="list-group-item list-group-item-action p-3" href="/">
+          Tasks
+        </a>
+      </li>
+      <li>
+        <a class="list-group-item list-group-item-action p-3" href="{% url 'task:worker-list' %}">
+          Workers
+        </a>
+      </li>
+      <li>
+        <a class="list-group-item list-group-item-action p-3"
+           href="{% url 'task:type-list' %}">
+          Task types
+        </a>
+      </li>
+      <li>
+        <a class="list-group-item list-group-item-action p-3"
+           href="{% url 'task:position-list' %}">
+          Positions
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>

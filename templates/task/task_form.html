@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="fild">
+    <h1>{{ object|yesno:"Update,Add" }} new task</h1>
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-outline-dark" type="submit" value="Submit">
+      <a href="{% url 'task:index' %}" class="btn btn-outline-secondary">No, return</a>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Delete worker</h1>
+  <p>Are you sure, you want to delete {{ worker.username }}? Deleted data cannot be returned</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Yes, delete" class="btn btn-outline-danger"/>
+    <a href="{% url 'task:worker-list' %}" class="btn btn-outline-secondary">No, return</a>
+  </form>
+{% endblock %}
