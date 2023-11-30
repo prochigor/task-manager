@@ -44,3 +44,5 @@ search form. Good luck to you with your work process.
 - `Password: 1qazcde3`
 
 10) Feel free to add more data using admin panel, if needed.
+
+11) (Data type format: `YYYY-mm-dd hh:mm`)
