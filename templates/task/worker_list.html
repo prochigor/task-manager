@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>Workers</h2>
+  <p>Here is all workers</p>
+  <hr>
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="my-4">Worker list:</h2>
+    </div>
+  </div>
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <form method="get" action="" class="form-inline">
+      {{ search_form|crispy }}
+      <input class="btn btn-light" type="submit" value="🔎">
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="border-gray-200">Id</th>
+        <th class="border-gray-200">Username</th>
+        <th class="border-gray-200">Full name</th>
+        <th class="border-gray-200">Position</th>
+        <th class="border-gray-200">Have tasks</th>
+        {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
+          <th class="border-gray-200">
+            <a href="{% url 'task:worker-create' %}" class="btn btn-outline-dark active, add">Add worker</a>
+          </th>
+        {% endif %}
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Item -->
+      {% for worker in worker_list %}
+        <tr>
+          <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold, detail">{{ worker.id }}</a></td>
+
+          <td>
+            <a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold, detail">{{ worker.username }}</a>
+          </td>
+          <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
+          <td><span class="fw-normal">{{ worker.position }}</span></td>
+          <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
+          {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
+            <td>
+              <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">Update
+                worker</a>
+              <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">Delete
+                worker</a>
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+

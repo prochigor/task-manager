@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2 class="tophead">
+    Task: {{ task.name }}
+    <a href="{% url 'task:index' %}" style="float: right" class="btn btn-outline-secondary">Go back</a>
+    {% if not task.is_completed %}
+      <a href="{% url 'task:toggle-task-complete' pk=task.id %}" class="btn btn-outline-success link-to-page">
+        Mark as completed
+      </a>
+    {% else %}
+      <a href="{% url 'task:toggle-task-complete' pk=task.id %}" class="btn btn-outline-warning link-to-page">
+        Reopen task
+      </a>
+    {% endif %}
+  </h2>
+  <p>Status: {% if not task.is_completed %} In progress {% else %} Done {% endif %}</p>
+  <h5>Task type: {{ task.task_type }}, priority ({{ task.get_priority_display|safe }})</h5>
+  <p><strong>Deadline before {{ task.deadline }}</strong></p>
+  <a href="{% url "task:task-update" pk=task.id %}" class="btn btn-outline-secondary">Update task</a>
+  <a href="{% url "task:task-delete" pk=task.id %}" class="btn btn-outline-danger">Delete task</a>
+  <hr>
+  <p>Description:</p>
+  <p>{{ task.description }}</p>
+  <div>
+    <hr>
+    <h4 style="margin-bottom: 15px;">
+      Workers who works on the task:
+      {% if task in user.tasks.all %}
+        <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-outline-danger link-to-page"
+           style="float: right">
+          Delete me from this task
+        </a>
+      {% else %}
+        <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-outline-success link-to-page"
+           style="float: right">
+          Assign me to this task
+        </a>
+      {% endif %}
+    </h4>
+    <div class="card card-body border-0 shadow table-wrapper table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th class="border-gray-200">Id</th>
+          <th class="border-gray-200">Username</th>
+          <th class="border-gray-200">Full name</th>
+          <th class="border-gray-200">Position</th>
+          <th class="border-gray-200">Have tasks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Item -->
+        {% for worker in task.assignees.all %}
+          <tr>
+            <td><a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold, detail">{{ worker.id }}</a></td>
+            <td>
+              <a href="{% url "task:worker-detail" pk=worker.id %}" class="fw-bold, detail">{{ worker.username }}</a>
+            </td>
+            <td><span class="fw-normal">{{ worker.first_name }} {{ worker.last_name }}</span></td>
+            <td><span class="fw-normal">{{ worker.position }}</span></td>
+            <td><span class="fw-normal">{{ worker.tasks.count }}</span></td>
+            {% if user.is_superuser or user.position == "Manager"  or user.id == worker.id %}
+              <td>
+                <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-sm btn-outline-secondary">
+                  Update worker
+                </a>
+                <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-sm btn-outline-danger">
+                  Delete worker
+                </a>
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% if not task.assignees.all %}
+        <h4>No one works on this task</h4>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Task manager</h1>
+  <p>There shows all tasks</p>
+  <hr>
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="my-4">Tasks list:</h2>
+    </div>
+  </div>
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <form method="get" action="" class="form-inline">
+      {{ search_form|crispy }}
+      <input class="btn btn-light" type="submit" value="🔎">
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="border-gray-200">Id</th>
+        <th class="border-gray-200">Task name</th>
+        <th class="border-gray-200">Task type</th>
+        <th class="border-gray-200">Deadline</th>
+        <th class="border-gray-200">Priority</th>
+        <th class="border-gray-200">Status</th>
+        <th class="border-gray-200">
+          <a href="{% url 'task:task-create' %}" class="btn btn-outline-dark">Add task</a>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Item -->
+      {% for task in object_list %}
+        <tr>
+          <td><a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">
+            {{ task.id }}
+          </a>
+          </td>
+          <td>
+            <a href="{% url "task:task-detail" pk=task.id %}" class="fw-bold, detail">
+              {{ task.name|truncatechars:15 }}</a>
+          </td>
+          <td><span class="fw-normal">{{ task.task_type }}</span></td>
+          <td><span class="fw-normal">{{ task.deadline }}</span></td>
+          <td><span class="fw-bold">{{ task.get_priority_display|safe }}</span></td>
+          <td><span
+              {% if task.is_completed %} class="fw-bold text-success" {% endif %}
+              {% if task.check_deadline and not task.is_completed %} class="fw-bold text-warning" {% endif %}
+              {% if not task.check_deadline and not task.is_completed %} class="fw-bold text-danger" {% endif %}
+          >
+            {% if task.is_completed %} Done {% endif %}
+            {% if task.check_deadline and not task.is_completed %} In progress {% endif %}
+            {% if not task.check_deadline and not task.is_completed %} Overdue {% endif %}
+          </span></td>
+          <td>
+            <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-sm btn-outline-secondary">Update task</a>
+            <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-sm btn-outline-danger">Delete task</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

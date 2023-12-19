@@ -1,0 +1,201 @@
+[
+  {
+    "model": "task.tasktype",
+    "pk": 1,
+    "fields": {
+      "name": "Fix bug"
+    }
+  },
+  {
+    "model": "task.tasktype",
+    "pk": 2,
+    "fields": {
+      "name": "Develop"
+    }
+  },
+  {
+    "model": "task.tasktype",
+    "pk": 3,
+    "fields": {
+      "name": "QA"
+    }
+  },
+  {
+    "model": "task.tasktype",
+    "pk": 4,
+    "fields": {
+      "name": "Design"
+    }
+  },
+  {
+    "model": "task.tasktype",
+    "pk": 5,
+    "fields": {
+      "name": "Refactoring"
+    }
+  },
+  {
+    "model": "task.tasktype",
+    "pk": 6,
+    "fields": {
+      "name": "New feature"
+    }
+  },
+  {
+    "model": "task.position",
+    "pk": 1,
+    "fields": {
+      "name": "Developer"
+    }
+  },
+  {
+    "model": "task.position",
+    "pk": 2,
+    "fields": {
+      "name": "Manager"
+    }
+  },
+  {
+    "model": "task.position",
+    "pk": 3,
+    "fields": {
+      "name": "QA"
+    }
+  },
+  {
+    "model": "task.position",
+    "pk": 4,
+    "fields": {
+      "name": "Designer"
+    }
+  },
+  {
+    "model": "task.position",
+    "pk": 5,
+    "fields": {
+      "name": "PM"
+    }
+  },
+  {
+    "model": "task.position",
+    "pk": 6,
+    "fields": {
+      "name": "New feature"
+    }
+  },
+  {
+    "model": "task.worker",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$6uM28XWOFX6ewyloJzjqmt$L+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eE=",
+      "last_login": "2022-08-08",
+      "is_superuser": true,
+      "username": "admin.user",
+      "first_name": "Admin",
+      "last_name": "User",
+      "email": "admin.user@taxi.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-08-08",
+      "position": 3,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task.worker",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$73Z1Y57bcoscZ37s9rE9v0$4SEQ0TtXwJKzO5/CRdFSrTifatiPjkZ38gM2H8Kqsdg=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "joyce.byers",
+      "first_name": "Joyce",
+      "last_name": "Byers",
+      "email": "joyce.byers@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08",
+      "position": 1,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task.worker",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$QtPol3T7x9quBj4BnbnVwW$UwT4kihkRfSvQEWEeuqVKwMgis2ikKVZfJDBcQMvOKY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jim.hopper",
+      "first_name": "Jim",
+      "last_name": "Hopper",
+      "email": "jim.hopper@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08",
+      "position": 2,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task.worker",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l1$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jonathan.byers",
+      "first_name": "Jonathan",
+      "last_name": "Byers",
+      "email": "jonathan.byers@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08",
+      "position": 4,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task.task",
+    "pk": 1,
+    "fields": {
+      "name": "Add feature",
+      "description": "Some description",
+      "deadline": "2023-12-12",
+      "is_completed": false,
+      "priority": "2",
+      "task_type": 3,
+      "assignees": [3]
+    }
+  },
+  {
+    "model": "task.task",
+    "pk": 2,
+    "fields": {
+      "name": "QA",
+      "description": "Some description",
+      "deadline": "2023-11-12",
+      "is_completed": false,
+      "priority": "3",
+      "task_type": 1,
+      "assignees": [4]
+    }
+  },
+  {
+    "model": "task.task",
+    "pk": 3,
+    "fields": {
+      "name": "Fix something",
+      "description": "Some description",
+      "deadline": "2023-10-12",
+      "is_completed": true,
+      "priority": "1",
+      "task_type": 6,
+      "assignees": [2]
+    }
+  }
+]
